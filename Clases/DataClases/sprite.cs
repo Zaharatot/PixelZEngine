@@ -12,7 +12,10 @@ namespace PixelZEngine.Clases.DataClases
     /// </summary>
     public class sprite
     {
-        //TODO: добавить проверку коллизий спрайтов
+        //TODO: добавить эффекты для спрайтов. Они будут управлять расположением пикселей.
+        //TODO: добавить вращение спрайтов (это относится к эффектам)
+        //TODO: добавить анимационные эффекты (например - шлейф частиц, взрыв).
+
 
         /// <summary>
         /// Уникальный идентификатор спрайта
@@ -49,13 +52,22 @@ namespace PixelZEngine.Clases.DataClases
         public bool visible { get; set; }
 
         /// <summary>
+        /// Плотность объекта. Является множителем 
+        /// для скорости прохождения сквозь объект.
+        /// </summary>
+        private double density;
+
+        /// <summary>
         /// Конструктор класса
         /// </summary>
         /// <param name="animation">Параметры анимации кадра</param>
         /// <param name="size">Размер пикселя спрайта</param>
         /// <param name="id">Уникальынй идентификатор спрайта</param>
-        public sprite(int size, animationParams animation, long id)
+        /// <param name="density">Плотность объекта</param>
+        public sprite(int size, animationParams animation, long id, double density)
         {
+            //Запоминаем плотность
+            this.density = density;
             //Запоминаем id
             this.id = id;
             //Запоминаем размер пикселя
@@ -136,15 +148,24 @@ namespace PixelZEngine.Clases.DataClases
             animation.animationDelay = animationDelay;
         }
 
-        /*        
-            Ресайз на ходу, из-за возможностий движка крайне сложен.
-            А всё из-за того, что пикселы у нас отображаются не 
-            матрицей, а списком. Т.е. мы в душе не ебём, какая конкретно
-            координата по иксу и игрику, относительно ноля у конкретного пикселя.
-            Нет, посчитать то можно, но это будет затратно.
-         */
+        /// <summary>
+        /// Обновляем размер пикселя спрайта
+        /// </summary>
+        /// <param name="size">Новый размер пикселя спрайта</param>
+        public void resize(int size)
+        {
+            //Получаем разницу между старым и новым размером
+            int shift = size - this.size;
+            //Запоминаем новый размер
+            this.size = size;
 
-        //TODO: добавить ресайз на ходу (теперь можно)
+            //Проходимся по списку кадров
+            for (int i = 0; i < framesCount; i++)
+                //Проходимся по всем пикселям кадра
+                for (int j = 0; j < frames[i].Length; j++)
+                    //Меняем размер и положение каждого
+                    frames[i][j].resizePixel(shift, size);
+        }      
 
         /// <summary>
         /// Получаем спрайт кадра
@@ -176,5 +197,32 @@ namespace PixelZEngine.Clases.DataClases
                     frameId = 0;
             }
         }
+
+        /// <summary>
+        /// Проверка замедления, при прохождении сквозь объект
+        /// </summary>
+        /// <param name="test">Массив пикселов, который тестируем</param>
+        /// <returns>Значение замедления</returns>
+        public double checkThrough(pixel[] test)
+        {
+            double ex = 0;
+
+            //Если плотность данного объекта больше ноля
+            if (density > 0)
+            {
+                //Получаем активный спрайт
+                var sprite = getSprite();
+                //Проходимся по списку пикселей спрайта
+                for (int i = 0; (ex == 0) && (i < sprite.Length); i++)
+                    //Проходимся по списку тестируемых пикселей
+                    for (int j = 0; (ex == 0) && (j < test.Length); j++)
+                        //Если спрайты пересеклись
+                        if (sprite[i].checkCollision(test[j]))
+                            //Возвращаем плотность объекта
+                            ex = density;
+            }
+
+            return ex;
+        } 
     }
 }

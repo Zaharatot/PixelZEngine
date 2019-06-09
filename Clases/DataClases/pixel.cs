@@ -39,7 +39,7 @@ namespace PixelZEngine.Clases.DataClases
             //Инициализируем кисть отрисовки
             color = new SolidBrush(col);
             //Инициализируем координаты
-            position = new Rectangle(coord.X, coord.Y, 5, 5);
+            position = new Rectangle(coord.X, coord.Y, size, size);
         }
 
         /// <summary>
@@ -52,6 +52,25 @@ namespace PixelZEngine.Clases.DataClases
         {
             //Обновляем расположение и размер пикселя
             position = new Rectangle(position.X + x, position.Y + y, size, size);
+        }
+
+        /// <summary>
+        /// Проверяем пересечение пикселей
+        /// </summary>
+        /// <param name="test">Пиксель, на пересечение с которым ведётся проверка</param>
+        /// <returns>True - пересекаются</returns>
+        public bool checkCollision(pixel test) =>
+            position.IntersectsWith(test.position);
+
+        /// <summary>
+        /// Меняем размер пикселя
+        /// </summary>
+        /// <param name="size">Новый размер пикселя</param>
+        /// <param name="shift">Разница между старым и новым размерами</param>
+        public void resizePixel(int shift, int size)
+        {
+            //Пересоздаём пиксель с указанным сдвигом
+            movePixel(shift * spritePosition.X, shift * spritePosition.Y, size);
         }
     }
 }

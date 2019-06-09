@@ -33,6 +33,11 @@ namespace PixelZEngine.Clases.DataClases.LoaderInfo
         /// Заменяемый цвет
         /// </summary>
         public Color? replace { get; set; }
+        /// <summary>
+        /// Плотность объекта. Является множителем 
+        /// для скорости прохождения сквозь объект.
+        /// </summary>
+        public double density { get; set; }
 
         /// <summary>
         /// Конструктор класса
@@ -45,6 +50,7 @@ namespace PixelZEngine.Clases.DataClases.LoaderInfo
             position = new positionParams();
             animation = new animationParams();
             id = -1;
+            density = 1;
         }
     }
 }

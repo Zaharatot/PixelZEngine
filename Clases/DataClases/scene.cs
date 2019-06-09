@@ -12,6 +12,8 @@ namespace PixelZEngine.Clases.DataClases
     /// </summary>
     public class scene
     {
+        //TODO: добавить надписи. они должны быть аналогичны спрайтам.
+
         /// <summary>
         /// Уникальный идентификатор сцены
         /// </summary>
@@ -78,14 +80,6 @@ namespace PixelZEngine.Clases.DataClases
         }
 
         /// <summary>
-        /// Перемещаем спрайты
-        /// </summary>
-        public void moveSprites()
-        {
-            //TODO: реализовать перемещение спрайтов
-        }
-
-        /// <summary>
         /// ЗАгружаем все пиксели сцены, для рендеринга
         /// </summary>
         /// <returns>Список пикселей всех активных спрайтов сцены</returns>
@@ -123,6 +117,33 @@ namespace PixelZEngine.Clases.DataClases
         /// <returns>Дабловое число секунд</returns>
         private double timeMicro() =>
             (DateTime.UtcNow - startDate).TotalSeconds;
+
+
+        /// <summary>
+        /// Получаем спрайт по id
+        /// </summary>
+        /// <param name="id">Id спрайта</param>
+        /// <returns>Найденный спрайт, либо null</returns>
+        public sprite getSpriteById(long id)
+        {
+            sprite ex = null;
+
+            try
+            {
+                //Проходимся по списку спрайтов
+                for (int i = 0; i < sprites.Length; i++)
+                    //Если нашли спрайт с таким id
+                    if (sprites[i].id == id)
+                    {
+                        //Возвращаем результат
+                        ex = sprites[i];
+                        break;
+                    }
+            }
+            catch { ex = null; }
+
+            return ex;
+        }
         
     }
 }

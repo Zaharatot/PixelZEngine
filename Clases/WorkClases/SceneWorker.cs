@@ -142,5 +142,26 @@ namespace PixelZEngine.Clases.WorkClases
             if ((redrawThread != null) && (redrawThread.IsAlive))
                 redrawThread.Abort();
         }
+
+
+        /// <summary>
+        /// Получаем сцену по id
+        /// </summary>
+        /// <param name="id">Id сцены</param>
+        /// <returns>Найденная сцена, либо null</returns>
+        public scene getSceneById(long id)
+        {
+            scene ex = null;
+
+            try
+            {
+                //Возвращаем сцену по id
+                ex = scenes.FirstOrDefault(sc => (sc.id == id));
+            }
+            catch { ex = null; }
+
+            return ex;
+        }
+
     }
 }

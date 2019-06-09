@@ -112,6 +112,7 @@ namespace PixelZEngine.Clases.WorkClases
                                     sprite.id,
                                     pic,
                                     sprite.position,
+                                    sprite.density,
                                     sprite.replace,
                                     sprite.animation
                                 );

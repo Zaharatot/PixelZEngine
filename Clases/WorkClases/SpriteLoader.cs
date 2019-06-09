@@ -65,8 +65,10 @@ namespace PixelZEngine.Clases.WorkClases
         /// <param name="animationDelay">Cкорость смены кадров</param>
         /// <param name="animation">Параметры анимации</param>
         /// <param name="id">Уникальный идентификатор спрайта</param>
+        /// <param name="density">Плотность спрайта</param>
         /// <returns>ЗАгруженный спрайт</returns>
-        public sprite load(long id, Bitmap pic, positionParams position, Color? replacement = null, animationParams animation = null)
+        public sprite load(long id, Bitmap pic, positionParams position, double density,
+            Color? replacement = null, animationParams animation = null)
         {
             //Итоговый спрайт
             sprite ex = null;
@@ -85,7 +87,7 @@ namespace PixelZEngine.Clases.WorkClases
                     animation = new animationParams();
 
                 //Инициализируем новый спрайт
-                ex = new sprite(position.size, animation, id);
+                ex = new sprite(position.size, animation, id, density);
 
                 //Если нужно менять цвет
                 if (replacement.HasValue)
