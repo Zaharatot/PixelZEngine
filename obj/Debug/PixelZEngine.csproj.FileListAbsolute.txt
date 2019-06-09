@@ -1,0 +1,6 @@
+H:\PixelZEngine\PixelZEngine\bin\Debug\PixelZEngine.dll
+H:\PixelZEngine\PixelZEngine\bin\Debug\PixelZEngine.pdb
+H:\PixelZEngine\PixelZEngine\obj\Debug\PixelZEngine.csprojAssemblyReference.cache
+H:\PixelZEngine\PixelZEngine\obj\Debug\PixelZEngine.csproj.CoreCompileInputs.cache
+H:\PixelZEngine\PixelZEngine\obj\Debug\PixelZEngine.dll
+H:\PixelZEngine\PixelZEngine\obj\Debug\PixelZEngine.pdb
